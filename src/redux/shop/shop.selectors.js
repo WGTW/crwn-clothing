@@ -11,7 +11,7 @@ export const selectCollections = createSelector(
 
 export const selectCollectionsForPreview = createSelector(
   [selectCollections],
-  collections => Object.keys(collections).map(key => collections[key]) // Get values of collections object in array format
+  collections => collections ? Object.keys(collections).map(key => collections[key]) : [] // Get values of collections object in array format
 )
 
 export const selectCollection = memoize((
@@ -20,6 +20,6 @@ export const selectCollection = memoize((
 ) =>
   createSelector(
     [selectCollections],
-    (collections) => collections[collectionUrlParam]
+    (collections) => collections ? collections[collectionUrlParam] : null // If there are no collections, we render an empty state
   )
 );
